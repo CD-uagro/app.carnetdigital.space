@@ -1,0 +1,38 @@
+{
+    "name": "Carnet Digital CRES - Universidad Autónoma de Guerrero",
+    "short_name": "Carnet Digital CRES",
+    "description": "Carnet Digital del Centro Regional de Educación Superior (CRES) Llano Largo - UAGro. Accede a tu identificación estudiantil digital oficial.",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "categories": ["education", "utilities"],
+    "lang": "es",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

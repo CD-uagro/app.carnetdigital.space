@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnet Digital CRES - Universidad Autónoma de Guerrero</title>
+    
+    <!-- Meta tags originales del sitio -->
+    <meta name="description" content="Carnet Digital del Centro Regional de Educación Superior (CRES) Llano Largo - UAGro">
+    <meta property="og:title" content="Carnet Digital CRES - Universidad Autónoma de Guerrero">
+    <meta property="og:url" content="https://app.carnetdigital.space/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    
+    <!-- Carrusel Netflix Styles -->
+    <link rel="stylesheet" href="carousel-netflix-styles.css">
+    <link rel="stylesheet" href="carousel-modal-styles.css">
+    
+    <style>
+        /* Estilos base que imitan el diseño original */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0175C2, #0891b2);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .loading-message {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flutter-placeholder {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #0175C2;
+        }
+
+        .login-simulation {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0175C2, #0891b2);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-message {
+            text-align: center;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .status-authenticated {
+            background: #ecfdf5;
+            color: #059669;
+            border: 1px solid #10b981;
+        }
+
+        .status-waiting {
+            background: #fff7ed;
+            color: #ea580c;
+            border: 1px solid #f97316;
+        }
+
+        /* Ocultar carrusel inicialmente */
+        #promociones-carousel-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎓 Carnet Digital CRES UAGro</h1>
+        <p>Universidad Autónoma de Guerrero - Centro Regional de Educación Superior</p>
+    </div>
+
+    <div class="container">
+        <div class="flutter-placeholder">
+            <h3>📱 Aplicación Flutter (En construcción)</h3>
+            <p>La aplicación principal de Flutter se está reconstruyendo con las nuevas características.</p>
+            <p><strong>Mientras tanto, puedes probar el nuevo carrusel de promociones:</strong></p>
+            
+            <div class="login-simulation">
+                <button class="btn btn-primary" onclick="simularLogin()">
+                    ✅ Simular Acceso de Estudiante
+                </button>
+            </div>
+            
+            <div id="status-message" class="status-message status-waiting">
+                ⏳ Haz clic en "Simular Acceso" para ver el carrusel de promociones
+            </div>
+        </div>
+
+        <!-- 🎬 CARRUSEL NETFLIX -->
+        <div id="promociones-carousel-container">
+            <div id="promociones-carousel-netflix">
+                <!-- El carrusel se renderizará aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts del carrusel -->
+    <script src="carousel-netflix-component.js"></script>
+    <script>
+        let promocionesCarousel;
+
+        // Datos de promociones de ejemplo
+        const promocionesDemo = [
+            {
+                id: 'promo_medicina_1',
+                departamento: 'Medicina',
+                descripcion: 'Campaña de vacunación contra influenza estacional. Aplicación gratuita para toda la comunidad estudiantil de medicina.',
+                prioridad: 'Alta',
+                grupoObjetivo: 'por_departamento',
+                fechaCreacion: new Date().toISOString(),
+                autor: 'Dr. María González'
+            },
+            {
+                id: 'promo_enfermeria_1',
+                departamento: 'Enfermeria',
+                descripcion: 'Jornada de donación de sangre voluntaria. Tu donación puede salvar vidas. Participa en el Centro de Hemoterapia.',
+                prioridad: 'Alta',
+                grupoObjetivo: 'todos',
+                fechaCreacion: new Date(Date.now() - 86400000).toISOString(),
+                autor: 'Lic. Ana Martínez'
+            },
+            {
+                id: 'promo_psicologia_1',
+                departamento: 'Psicologia',
+                descripcion: 'Talleres de manejo del estrés académico y técnicas de estudio. Sesiones grupales todos los miércoles.',
+                prioridad: 'Media',
+                grupoObjetivo: 'todos',
+                fechaCreacion: new Date(Date.now() - 172800000).toISOString(),
+                autor: 'Psic. Carlos Ruiz'
+            },
+            {
+                id: 'promo_odontologia_1',
+                departamento: 'Odontologia',
+                descripcion: 'Programa de salud bucal preventiva. Limpieza dental gratuita para estudiantes de primer semestre.',
+                prioridad: 'Media',
+                grupoObjetivo: 'estudiante_especifico',
+                matriculaEspecifica: '20241234567',
+                fechaCreacion: new Date(Date.now() - 259200000).toISOString(),
+                autor: 'Dr. Luis Hernández'
+            },
+            {
+                id: 'promo_general_1',
+                departamento: 'General',
+                descripcion: 'Programa de actividad física y bienestar. Clases de yoga, pilates y aeróbicos en el gimnasio universitario.',
+                prioridad: 'Baja',
+                grupoObjetivo: 'todos',
+                fechaCreacion: new Date(Date.now() - 345600000).toISOString(),
+                autor: 'Coordinación de Deportes'
+            }
+        ];
+
+        function setupMockAPI() {
+            const originalFetch = window.fetch;
+            window.fetch = function(url, options) {
+                console.log('🌐 API Call:', url);
+                
+                if (url.includes('/me/promociones')) {
+                    return Promise.resolve({
+                        ok: true,
+                        json: () => Promise.resolve({ 
+                            promociones: promocionesDemo,
+                            total: promocionesDemo.length,
+                            usuario: 'Estudiante UAGro'
+                        })
+                    });
+                }
+                
+                return originalFetch.apply(this, arguments);
+            };
+        }
+
+        function simularLogin() {
+            // Simular autenticación
+            localStorage.setItem('authToken', 'demo_token_' + Date.now());
+            
+            // Cambiar mensaje de estado
+            const statusMessage = document.getElementById('status-message');
+            statusMessage.className = 'status-message status-authenticated';
+            statusMessage.innerHTML = '✅ Estudiante autenticado - Cargando promociones de salud...';
+            
+            // Mostrar carrusel después de un momento
+            setTimeout(() => {
+                const container = document.getElementById('promociones-carousel-container');
+                container.style.display = 'block';
+                container.style.animation = 'slideInFromBottom 0.6s ease-out';
+                
+                // Inicializar carrusel
+                promocionesCarousel = new PromocionesCarousel('promociones-carousel-netflix', {
+                    apiUrl: 'mock://api',
+                    autoPlayInterval: 4000,
+                    itemsPerView: 3,
+                    slideSpeed: 600,
+                    enableAutoPlay: true,
+                    enableTouch: true
+                });
+                
+                statusMessage.innerHTML = '🎬 Carrusel de promociones activo - Navegación: ← → o touch/swipe';
+            }, 1000);
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            setupMockAPI();
+            console.log('🎯 Página temporal lista - Esperando reconstrucción de Flutter');
+        });
+
+        // CSS para animación
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInFromBottom {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
